@@ -7,6 +7,7 @@ export default class View {
 
   clearInput() {
     this.inputUrl.value = '';
+    this.inputUrl.focus();
   }
 
   showInvalidInput(force = true) {
