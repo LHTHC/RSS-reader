@@ -1,16 +1,29 @@
-export default class View {
-  constructor() {
-    this.inputUrl = document.querySelector('#url-input');
-    this.form = this.inputUrl.closest('form');
-    this.addButton = this.form.querySelector('button');
-  }
+import onChange from 'on-change';
+import render from './render/index';
 
-  clearInput() {
-    this.inputUrl.value = '';
-    this.inputUrl.focus();
-  }
+const { renderError, renderSuccess } = render;
 
-  showInvalidInput(force = true) {
-    this.inputUrl.classList.toggle('is-invalid', force);
-  }
+function watchedState(state, text) {
+  return onChange(state, (path, value) => {
+    const form = document.querySelector('.rss-form');
+    const input = document.querySelector('#url-input');
+    const feedback = document.querySelector('.feedback');
+    const button = document.querySelector('[aria-label="add"]');
+
+    if (path === 'process.validationState') {
+      if (value === 'invalid') {
+        renderError(input, feedback, text.t('feedback.invalidRssUrlError'));
+      }
+      if (value === 'duplication') {
+        renderError(input, feedback, text.t('feedback.duplicationUrlError'));
+      }
+      if (value === 'valid') {
+        renderSuccess(input, feedback, text.t('feedback.successfulLoading'));
+        input.value = '';
+        input.focus();
+      }
+    }
+  });
 }
+
+export default watchedState;
