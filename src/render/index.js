@@ -1,4 +1,3 @@
-import renderError from './renderError.js';
-import renderSuccess from './renderSuccess.js';
+import renderFeedback from './renderFeedbackMessage.js';
 
-export default { renderError, renderSuccess };
+export default { renderFeedback };

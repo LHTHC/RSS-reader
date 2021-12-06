@@ -1,7 +1,7 @@
 import onChange from 'on-change';
 import render from './render/index';
 
-const { renderError, renderSuccess } = render;
+const { renderFeedback } = render;
 
 function watchedState(state, text) {
   return onChange(state, (path, value) => {
@@ -12,13 +12,13 @@ function watchedState(state, text) {
 
     if (path === 'process.validationState') {
       if (value === 'invalid') {
-        renderError(input, feedback, text.t('feedback.invalidRssUrlError'));
+        renderFeedback(input, feedback, text.t('feedback.invalidRssUrlError'));
       }
       if (value === 'duplication') {
-        renderError(input, feedback, text.t('feedback.duplicationUrlError'));
+        renderFeedback(input, feedback, text.t('feedback.duplicationUrlError'));
       }
       if (value === 'valid') {
-        renderSuccess(input, feedback, text.t('feedback.successfulLoading'));
+        renderFeedback(input, feedback, text.t('feedback.successfulLoading'), false);
         input.value = '';
         input.focus();
       }
