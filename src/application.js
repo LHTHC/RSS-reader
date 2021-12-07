@@ -1,10 +1,11 @@
-import * as yup from 'yup';
 import i18next from 'i18next';
 import axios from 'axios';
 import watched from './view';
 import resources from './locales/index';
 import routes from './utils/routes';
 import parser from './parser';
+import validate from './validator';
+import updatePosts from './updatePosts';
 
 export default () => {
   const defaultLanguage = 'ru';
@@ -19,49 +20,47 @@ export default () => {
         lng: defaultLanguage,
         feeds: [],
         posts: [],
-        links: [],
-        feedback: null,
-        process: {
-          validationState: null,
-          parseError: null,
-        },
+        error: null,
+        refreshInterval: 5000,
       };
 
       const watchedState = watched(state, i18n);
-      const schema = yup.string().url();
       const form = document.querySelector('.rss-form');
 
       form.addEventListener('submit', (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const url = formData.get('url');
-        schema.validate(url)
-          .then((data) => {
-            if (!watchedState.links.includes(url)) {
-              watchedState.links.unshift(data);
-              watchedState.process.validationState = 'valid';
-            } else {
-              watchedState.process.validationState = 'duplication';
-            }
-          })
+        try {
+          const loadedUrls = watchedState.feeds;
+          validate(url, loadedUrls);
+        } catch (validationError) {
+          const error = validationError.errors[0];
+          watchedState.error = error;
+          return;
+        }
+        axios
+          .get(routes.getRssPath(url))
+          .then((response) => response.data.contents)
           .catch(() => {
-            watchedState.process.validationState = 'invalid';
-          }).then(() => {
-            if (watchedState.process.validationState === 'valid') {
-              axios.get(routes.getRssPath(url))
-                .then((response) => {
-                  const data = parser(response.data.contents);
-                  if (!data) {
-                    throw new Error('parseError');
-                  }
-                  const { feed, posts } = data;
-                  watchedState.feeds.unshift(feed);
-                  watchedState.posts.unshift(...posts);
-                })
-                .catch((err) => {
-                  throw err;
-                });
-            }
+            watchedState.error = 'networkError';
+          })
+          .then((data) => {
+            watchedState.error = null;
+            const parsedRss = parser(data);
+            const { title, description, posts } = parsedRss;
+            const newFeed = { url, title, description };
+
+            watchedState.feeds = [newFeed, ...watchedState.feeds];
+            watchedState.posts = [...posts, ...watchedState.posts];
+
+            setInterval(() => {
+              updatePosts(url, watchedState);
+            }, state.refreshInterval);
+          })
+          .catch((err) => {
+            watchedState.error = 'parsingError';
+            throw err;
           });
       });
     });
