@@ -1,7 +1,7 @@
 import onChange from 'on-change';
 import render from './render/index';
 
-const { renderFeedback } = render;
+const { renderFeedback, renderFeeds, renderPosts } = render;
 
 function watchedState(state, text) {
   return onChange(state, (path, value) => {
@@ -9,6 +9,8 @@ function watchedState(state, text) {
     const input = document.querySelector('#url-input');
     const feedback = document.querySelector('.feedback');
     const button = document.querySelector('[aria-label="add"]');
+    const feeds = document.querySelector('.feeds');
+    const posts = document.querySelector('.posts');
 
     if (path === 'process.validationState') {
       if (value === 'invalid') {
@@ -22,6 +24,13 @@ function watchedState(state, text) {
         input.value = '';
         input.focus();
       }
+    }
+
+    if (path === 'feeds') {
+      renderFeeds(feeds, text.t('templateText.feedsListTitle'), state);
+    }
+    if (path === 'posts') {
+      renderPosts(posts, text.t('templateText.postsListTitle'), state);
     }
   });
 }
