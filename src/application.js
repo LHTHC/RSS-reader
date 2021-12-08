@@ -2,7 +2,7 @@ import i18next from 'i18next';
 import axios from 'axios';
 import watched from './view';
 import resources from './locales/index';
-import routes from './utils/routes';
+import proxify from './utils/routes';
 import parser from './parser';
 import validate from './validator';
 import updatePosts from './updatePosts';
@@ -41,7 +41,7 @@ export default () => {
           return;
         }
         axios
-          .get(routes.getRssPath(url))
+          .get(proxify(url))
           .then((response) => response.data.contents)
           .catch(() => {
             watchedState.error = 'networkError';
