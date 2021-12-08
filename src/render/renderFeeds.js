@@ -1,8 +1,9 @@
+/* eslint-disable no-param-reassign */
 const renderFeeds = (target, text, feeds) => {
   const feedsList = document.querySelector('#feeds-list');
   feedsList.innerHTML = '';
   const feedsTitle = target.querySelector('h2');
-  feedsTitle.textContent = text;
+  feedsTitle.textContent = text.t('templateText.feedsListTitle');
 
   feeds.forEach((feed) => {
     const liEl = document.createElement('li');

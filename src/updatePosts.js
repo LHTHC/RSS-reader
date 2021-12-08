@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
-
 import axios from 'axios';
 import differenceBy from 'lodash/differenceBy';
+import isEmpty from 'lodash/isEmpty';
 import routes from './utils/routes';
 import parser from './parser';
 
@@ -12,13 +12,10 @@ const updatePosts = (url, state) => {
       const existingPosts = state.posts;
       const downloadedPosts = parsedRss.posts;
       const newPosts = differenceBy(downloadedPosts, existingPosts, 'title');
-      if (newPosts) {
+      if (!isEmpty(newPosts)) {
         state.posts = [...newPosts, ...state.posts];
       }
     });
-  setTimeout(() => {
-    updatePosts(url, state);
-  }, state.refreshInterval);
 };
 
 export default updatePosts;

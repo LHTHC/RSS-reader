@@ -15,6 +15,7 @@ export default {
     feedback: {
       duplicationUrlError: 'RSS уже существует',
       invalidRssUrlError: 'Ссылка должна быть валидным URL',
+      emptyUrl: 'Не должно быть пустым',
       networkError: 'Ошибка сети',
       parsingError: 'Ресурс не содержит валидный RSS',
       successfulLoading: 'RSS успешно загружен',

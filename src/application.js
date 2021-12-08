@@ -20,6 +20,7 @@ export default () => {
         lng: defaultLanguage,
         feeds: [],
         posts: [],
+        addedLinks: [],
         error: null,
         refreshInterval: 5000,
       };
@@ -32,7 +33,7 @@ export default () => {
         const formData = new FormData(e.target);
         const url = formData.get('url');
         try {
-          const loadedUrls = watchedState.feeds;
+          const loadedUrls = watchedState.addedLinks;
           validate(url, loadedUrls);
         } catch (validationError) {
           const error = validationError.errors[0];
@@ -50,6 +51,7 @@ export default () => {
             const parsedRss = parser(data);
             const { title, description, posts } = parsedRss;
             const newFeed = { url, title, description };
+            watchedState.addedLinks.push(url);
 
             watchedState.feeds = [newFeed, ...watchedState.feeds];
             watchedState.posts = [...posts, ...watchedState.posts];
