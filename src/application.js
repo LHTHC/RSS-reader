@@ -32,7 +32,7 @@ export default () => {
         const formData = new FormData(e.target);
         const url = formData.get('url');
         try {
-          const loadedUrls = watchedState.posts.map((post) => post.link);
+          const loadedUrls = watchedState.feeds.map((item) => item.feedUrl);
           validate(url, loadedUrls);
         } catch (validationError) {
           const error = validationError.errors[0];
@@ -49,8 +49,7 @@ export default () => {
             watchedState.error = null;
             const parsedRss = parser(data);
             const { title, description, posts } = parsedRss;
-            const newFeed = { url, title, description };
-            watchedState.addedLinks.push(url);
+            const newFeed = { feedUrl: url, title, description };
 
             watchedState.feeds = [newFeed, ...watchedState.feeds];
             watchedState.posts = [...posts, ...watchedState.posts];
