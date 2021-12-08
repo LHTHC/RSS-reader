@@ -2,11 +2,11 @@
 import axios from 'axios';
 import differenceBy from 'lodash/differenceBy';
 import isEmpty from 'lodash/isEmpty';
-import routes from './utils/routes';
 import parser from './parser';
+import proxify from './utils/routes'
 
 const updatePosts = (url, state) => {
-  axios.get(routes.getRssPath(url))
+  axios.get(proxify(url))
     .then((response) => {
       const parsedRss = parser(response.data.contents);
       const existingPosts = state.posts;

@@ -35,6 +35,7 @@ export default () => {
         try {
           const loadedUrls = watchedState.addedLinks;
           validate(url, loadedUrls);
+          console.log([url, proxify(url)])
         } catch (validationError) {
           const error = validationError.errors[0];
           watchedState.error = error;
