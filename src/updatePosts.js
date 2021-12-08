@@ -3,7 +3,7 @@ import axios from 'axios';
 import differenceBy from 'lodash/differenceBy';
 import isEmpty from 'lodash/isEmpty';
 import parser from './parser';
-import proxify from './utils/routes'
+import proxify from './utils/routes';
 
 const updatePosts = (url, state) => {
   axios.get(proxify(url))

@@ -20,7 +20,6 @@ export default () => {
         lng: defaultLanguage,
         feeds: [],
         posts: [],
-        addedLinks: [],
         error: null,
         refreshInterval: 5000,
       };
@@ -33,9 +32,8 @@ export default () => {
         const formData = new FormData(e.target);
         const url = formData.get('url');
         try {
-          const loadedUrls = watchedState.addedLinks;
+          const loadedUrls = watchedState.posts.map((post) => post.link);
           validate(url, loadedUrls);
-          console.log([url, proxify(url)])
         } catch (validationError) {
           const error = validationError.errors[0];
           watchedState.error = error;
