@@ -48,7 +48,6 @@ export default () => {
         } catch (validationError) {
           const error = validationError.errors[0];
           watchedState.error = error;
-          watchedState.process = 'waiting';
           return;
         }
         axios
@@ -56,7 +55,6 @@ export default () => {
           .then((response) => response.data.contents)
           .catch(() => {
             watchedState.error = 'networkError';
-            watchedState.process = 'waiting';
           })
           .then((data) => {
             const parsedRss = parser(data);
