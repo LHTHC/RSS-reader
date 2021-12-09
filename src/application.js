@@ -67,14 +67,13 @@ export default () => {
             watchedState.feeds = [newFeed, ...watchedState.feeds];
             watchedState.posts = [...posts, ...watchedState.posts];
             watchedState.process = 'waiting';
-            setInterval(() => {
+            setTimeout(() => {
               updatePosts(url, watchedState);
             }, state.refreshInterval);
           })
-          .catch((err) => {
+          .catch(() => {
             watchedState.error = 'parsingError';
             watchedState.process = 'waiting';
-            throw err;
           });
       });
     });
