@@ -12,12 +12,12 @@ export default (state, text) => {
   const posts = document.querySelector('.posts');
   switch (state.process) {
     case 'loading':
-      input.setAttribute('readonly', true);
-      addButton.setAttribute('disabled', true);
+      input.setAttribute('readonly');
+      addButton.classList.add('disabled');
       break;
     default:
       input.removeAttribute('readonly');
-      addButton.removeAttribute('disabled');
+      addButton.classList.remove('disabled');
       if (state.error) {
         renderFeedback(input, feedback, text.t(`feedback.${state.error}`));
       } else {
