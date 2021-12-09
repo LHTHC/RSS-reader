@@ -2,7 +2,8 @@ import * as yup from 'yup';
 
 export default (url, loadedUrls) => {
   const schema = yup
-    .string()
+    .string('')
+    .required('emptyUrl')
     .url('invalidRssUrlError')
     .notOneOf(loadedUrls, 'duplicationUrlError');
 

@@ -8,6 +8,7 @@ import proxify from './utils/routes';
 const updatePosts = (url, state) => {
   axios.get(proxify(url))
     .then((response) => {
+      state.process = 'updatingPosts';
       const parsedRss = parser(response.data.contents);
       const existingPosts = state.posts;
       const downloadedPosts = parsedRss.posts;
@@ -15,6 +16,7 @@ const updatePosts = (url, state) => {
       if (!isEmpty(newPosts)) {
         state.posts = [...newPosts, ...state.posts];
       }
+      state.process = 'waiting';
     });
 };
 

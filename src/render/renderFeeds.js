@@ -1,11 +1,12 @@
 /* eslint-disable no-param-reassign */
-const renderFeeds = (target, text, feeds) => {
+
+const renderFeeds = (target, text, state) => {
   const feedsList = document.querySelector('#feeds-list');
   feedsList.innerHTML = '';
   const feedsTitle = target.querySelector('h2');
   feedsTitle.textContent = text.t('templateText.feedsListTitle');
 
-  feeds.forEach((feed) => {
+  state.feeds.forEach((feed) => {
     const liEl = document.createElement('li');
     liEl.classList.add('list-group-item', 'border-0', 'border-end-0');
     const title = document.createElement('h3');

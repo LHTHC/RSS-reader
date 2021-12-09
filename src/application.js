@@ -1,6 +1,7 @@
 import i18next from 'i18next';
 import axios from 'axios';
-import watched from './view';
+import onChange from 'on-change';
+import render from './view';
 import resources from './locales/index';
 import proxify from './utils/routes';
 import parser from './parser';
@@ -22,12 +23,22 @@ export default () => {
         posts: [],
         error: null,
         refreshInterval: 5000,
+        modalPost: {
+          title: null,
+        },
+        process: 'ready',
       };
 
-      const watchedState = watched(state, i18n);
+      const watchedState = onChange(state, (path, value) => {
+        const processes = ['waiting', 'processing', 'loading'];
+        if (path === 'process' && processes.includes(value)) {
+          render(state, i18n);
+        }
+      });
       const form = document.querySelector('.rss-form');
 
       form.addEventListener('submit', (e) => {
+        watchedState.process = 'loading';
         e.preventDefault();
         const formData = new FormData(e.target);
         const url = formData.get('url');
@@ -37,6 +48,7 @@ export default () => {
         } catch (validationError) {
           const error = validationError.errors[0];
           watchedState.error = error;
+          watchedState.process = 'waiting';
           return;
         }
         axios
@@ -44,22 +56,24 @@ export default () => {
           .then((response) => response.data.contents)
           .catch(() => {
             watchedState.error = 'networkError';
+            watchedState.process = 'waiting';
           })
           .then((data) => {
-            watchedState.error = null;
             const parsedRss = parser(data);
+            watchedState.error = null;
             const { title, description, posts } = parsedRss;
             const newFeed = { feedUrl: url, title, description };
 
             watchedState.feeds = [newFeed, ...watchedState.feeds];
             watchedState.posts = [...posts, ...watchedState.posts];
-
+            watchedState.process = 'waiting';
             setInterval(() => {
               updatePosts(url, watchedState);
             }, state.refreshInterval);
           })
           .catch((err) => {
             watchedState.error = 'parsingError';
+            watchedState.process = 'waiting';
             throw err;
           });
       });
