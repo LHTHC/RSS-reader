@@ -1,10 +1,8 @@
 export default (data) => {
   const parser = new DOMParser();
   const doc = parser.parseFromString(data, 'application/xml');
-  
-  const title = doc.querySelector('title').textContent;
-  const description = doc.querySelector('description').textContent;
-
+  const title = doc.querySelector('channel title').textContent;
+  const description = doc.querySelector('channel description').textContent;
   const posts = Array.from(doc.querySelectorAll('item')).map((item) => {
     const post = {
       title: item.querySelector('title').textContent,
