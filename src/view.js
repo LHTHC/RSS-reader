@@ -12,7 +12,7 @@ export default (state, text) => {
   const posts = document.querySelector('.posts');
   switch (state.process) {
     case 'loading':
-      input.setAttribute('readonly');
+      input.setAttribute('readonly', '');
       addButton.classList.add('disabled');
       break;
     default:
