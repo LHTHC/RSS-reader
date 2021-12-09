@@ -13,11 +13,11 @@ export default (state, text) => {
   switch (state.process) {
     case 'loading':
       input.setAttribute('readonly', '');
-      addButton.classList.add('disabled');
+      addButton.disabled = true;
       break;
     default:
       input.removeAttribute('readonly');
-      addButton.classList.remove('disabled');
+      addButton.disabled = false;
       if (state.error) {
         renderFeedback(input, feedback, text.t(`feedback.${state.error}`));
       } else {
