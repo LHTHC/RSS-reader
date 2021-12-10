@@ -30,7 +30,11 @@ export default () => {
       };
 
       const watchedState = onChange(state, (path, value) => {
-        const processes = ['waiting', 'processing', 'processingRequest'];
+        const processes = [
+          'waiting',
+          'processing',
+          'processingRequest',
+          'postsUpdated'];
         if (path === 'process' && processes.includes(value)) {
           render(state, i18n);
         }

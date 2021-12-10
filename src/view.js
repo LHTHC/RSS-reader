@@ -15,7 +15,7 @@ export default (state, text) => {
       input.setAttribute('readonly', true);
       addButton.setAttribute('disabled', true);
       break;
-    default:
+    case 'waiting':
       input.removeAttribute('readonly');
       addButton.removeAttribute('disabled');
       if (state.error) {
@@ -25,9 +25,16 @@ export default (state, text) => {
         input.value = '';
         input.focus();
       }
-      if (state.feeds.length !== 0) {
+      if (state.feeds.length) {
         renderFeeds(feeds, text, state);
         renderPosts(posts, text, state);
       }
+      break;
+    case 'updatingPosts':
+    case 'postsUpdated':
+      renderPosts(posts, text, state);
+      break;
+    default:
+      throw new Error(`Unknown application state: ${state.process}`);
   }
 };

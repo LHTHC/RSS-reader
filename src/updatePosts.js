@@ -16,7 +16,7 @@ const updatePosts = (url, state) => {
       if (!isEmpty(newPosts)) {
         state.posts = [...newPosts, ...state.posts];
       }
-      state.process = 'waiting';
+      state.process = 'postsUpdated';
     });
   setTimeout(() => {
     updatePosts(url, state);
