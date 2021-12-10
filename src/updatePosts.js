@@ -18,9 +18,9 @@ const updatePosts = (url, state) => {
       }
       state.process = 'waiting';
     });
-    setTimeout(() => {
-      updatePosts(url, state)
-    }, state.refreshInterval)
+  setTimeout(() => {
+    updatePosts(url, state);
+  }, state.refreshInterval);
 };
 
 export default updatePosts;

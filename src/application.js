@@ -30,7 +30,7 @@ export default () => {
       };
 
       const watchedState = onChange(state, (path, value) => {
-        const processes = ['waiting', 'processing', 'loading'];
+        const processes = ['waiting', 'processing', 'processingRequest'];
         if (path === 'process' && processes.includes(value)) {
           render(state, i18n);
         }
@@ -38,7 +38,7 @@ export default () => {
       const form = document.querySelector('.rss-form');
 
       form.addEventListener('submit', (e) => {
-        watchedState.process = 'loading';
+        watchedState.process = 'processingRequest';
         e.preventDefault();
         const formData = new FormData(e.target);
         const url = formData.get('url');

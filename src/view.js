@@ -11,7 +11,7 @@ export default (state, text) => {
   const feeds = document.querySelector('.feeds');
   const posts = document.querySelector('.posts');
   switch (state.process) {
-    case 'loading':
+    case 'processingRequest':
       input.setAttribute('readonly', true);
       addButton.setAttribute('disabled', true);
       break;
