@@ -10,7 +10,20 @@ export default (state, text) => {
   const feedback = document.querySelector('.feedback');
   const feeds = document.querySelector('.feeds');
   const posts = document.querySelector('.posts');
+  const placeholder = document.querySelector('.holder');
+  const lead = document.querySelector('.lead');
+  const inputLabel = document.querySelector('.input-label');
+  const example = document.querySelector('.example');
+
   switch (state.process) {
+    case 'initializing':
+      placeholder.textContent = text.t('templateText.placeholder');
+      lead.textContent = text.t('templateText.lead');
+      inputLabel.textContent = text.t('templateText.inputLabel');
+      input.setAttribute('placeholder', text.t('templateText.inputLabel'));
+      example.textContent = text.t('templateText.example');
+      addButton.textContent = text.t('templateText.add');
+      break;
     case 'processingRequest':
       input.setAttribute('readonly', true);
       addButton.setAttribute('disabled', true);

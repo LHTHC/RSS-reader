@@ -26,7 +26,7 @@ export default () => {
         modalPost: {
           title: null,
         },
-        process: 'ready',
+        process: 'initializing',
       };
 
       const watchedState = onChange(state, (path, value) => {
@@ -34,13 +34,14 @@ export default () => {
           'waiting',
           'processing',
           'processingRequest',
-          'postsUpdated'];
+          'postsUpdated',
+          'initializing'];
         if (path === 'process' && processes.includes(value)) {
           render(state, i18n);
         }
       });
+      render(state, i18n);
       const form = document.querySelector('.rss-form');
-
       form.addEventListener('submit', (e) => {
         watchedState.process = 'processingRequest';
         e.preventDefault();
