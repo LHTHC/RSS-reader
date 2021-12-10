@@ -34,10 +34,25 @@ export default () => {
           'waiting',
           'processing',
           'processingRequest',
-          'postsUpdated'];
+          'postsUpdated',
+          'initializing',
+          'changingLanguage'];
         if (path === 'process' && processes.includes(value)) {
           render(state, i18n);
         }
+      });
+
+      const languageChangeButtons = document.querySelectorAll('.change-lang');
+      languageChangeButtons.forEach((button) => {
+        button.addEventListener('click', (e) => {
+          watchedState.process = 'changingLanguage';
+          if (watchedState.lng !== e.target.dataset.language) {
+            watchedState.lng = e.target.dataset.language;
+            i18n.changeLanguage(watchedState.lng).then(() => {
+              watchedState.process = 'initializing';
+            });
+          }
+        });
       });
 
       const form = document.querySelector('.rss-form');
