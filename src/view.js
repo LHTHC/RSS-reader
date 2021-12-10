@@ -1,3 +1,4 @@
+import { format } from 'prettier';
 import renderers from './render/index';
 import getFeedBackMessage from './utils/generateFeedBackMessage';
 
@@ -42,6 +43,8 @@ export default (state, text) => {
         renderPosts(posts, text, state);
       }
       renderFeedback(feedback, text, state);
+      format.reset();
+      input.value = '';
       break;
     case 'updatingPosts':
     case 'postsUpdated':
