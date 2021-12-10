@@ -28,7 +28,7 @@ export default () => {
         },
         process: 'initializing',
       };
-      render(state, i18n); //init texts
+      render(state, i18n); // init texts
       const watchedState = onChange(state, (path, value) => {
         const processes = [
           'waiting',
@@ -39,7 +39,7 @@ export default () => {
           render(state, i18n);
         }
       });
-      
+
       const form = document.querySelector('.rss-form');
       form.addEventListener('submit', (e) => {
         watchedState.process = 'processingRequest';
