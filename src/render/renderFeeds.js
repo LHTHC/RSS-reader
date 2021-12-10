@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 
-const renderFeeds = (target, text, state) => {
+export default (target, text, state) => {
   const feedsList = document.querySelector('#feeds-list');
   feedsList.innerHTML = '';
   const feedsTitle = target.querySelector('h2');
@@ -19,5 +19,3 @@ const renderFeeds = (target, text, state) => {
     feedsList.append(liEl);
   });
 };
-
-export default renderFeeds;

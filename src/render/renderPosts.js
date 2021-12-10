@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 
-const renderPosts = (target, text, state) => {
+export default (target, text, state) => {
   const postsList = document.querySelector('#posts-list');
   postsList.innerHTML = '';
   const postsTitle = target.querySelector('h2');
@@ -42,5 +42,3 @@ const renderPosts = (target, text, state) => {
     postsList.append(liEl);
   });
 };
-
-export default renderPosts;

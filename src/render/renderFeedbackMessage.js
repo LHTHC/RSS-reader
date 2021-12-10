@@ -1,4 +1,4 @@
-const renderFeedback = (input, target, text, force = true) => {
+export default (input, target, text, force = true) => {
   input.classList.toggle('is-invalid', force);
   target.classList.toggle('text-danger', force);
   if (force) {
@@ -9,5 +9,3 @@ const renderFeedback = (input, target, text, force = true) => {
   const textNode = document.createTextNode(text);
   target.replaceChildren(textNode);
 };
-
-export default renderFeedback;
