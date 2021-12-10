@@ -1,11 +1,13 @@
-export default (input, target, text, force = true) => {
-  input.classList.toggle('is-invalid', force);
-  target.classList.toggle('text-danger', force);
-  if (force) {
+export default (target, text, state) => {
+  if (state.error) {
+    target.classList.add('is-invalid', 'text-danger');
     target.classList.toggle('text-success', false);
+    const textNode = document.createTextNode(text.t(`feedback.${state.error}`));
+    target.replaceChildren(textNode);
   } else {
+    target.classList.remove('is-invalid', 'text-danger');
     target.classList.toggle('text-success', true);
+    const textNode = document.createTextNode(text.t('feedback.successfulLoading'));
+    target.replaceChildren(textNode);
   }
-  const textNode = document.createTextNode(text);
-  target.replaceChildren(textNode);
 };

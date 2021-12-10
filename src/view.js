@@ -1,4 +1,5 @@
 import renderers from './render/index';
+import getFeedBackMessage from './utils/generateFeedBackMessage';
 
 const {
   renderFeedback, renderFeeds, renderPosts,
@@ -14,15 +15,20 @@ export default (state, text) => {
   const lead = document.querySelector('.lead');
   const inputLabel = document.querySelector('.input-label');
   const example = document.querySelector('.example');
-
   switch (state.process) {
     case 'initializing':
+    case 'changingLanguage':
       placeholder.textContent = text.t('templateText.placeholder');
       lead.textContent = text.t('templateText.lead');
       inputLabel.textContent = text.t('templateText.inputLabel');
       input.setAttribute('placeholder', text.t('templateText.inputLabel'));
       example.textContent = text.t('templateText.example');
       addButton.textContent = text.t('templateText.add');
+      feedback.replaceChildren(getFeedBackMessage(state, text));
+      if (state.feeds.length) {
+        renderFeeds(feeds, text, state);
+        renderPosts(posts, text, state);
+      }
       break;
     case 'processingRequest':
       input.setAttribute('readonly', true);
@@ -31,17 +37,11 @@ export default (state, text) => {
     case 'waiting':
       input.removeAttribute('readonly');
       addButton.removeAttribute('disabled');
-      if (state.error) {
-        renderFeedback(input, feedback, text.t(`feedback.${state.error}`));
-      } else {
-        renderFeedback(input, feedback, text.t('feedback.successfulLoading'), false);
-        input.value = '';
-        input.focus();
-      }
       if (state.feeds.length) {
         renderFeeds(feeds, text, state);
         renderPosts(posts, text, state);
       }
+      renderFeedback(feedback, text, state);
       break;
     case 'updatingPosts':
     case 'postsUpdated':
