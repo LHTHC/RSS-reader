@@ -1,4 +1,3 @@
-import { format } from 'prettier';
 import renderers from './render/index';
 import getFeedBackMessage from './utils/generateFeedBackMessage';
 
