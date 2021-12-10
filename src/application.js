@@ -46,8 +46,7 @@ export default () => {
           const loadedUrls = watchedState.feeds.map((item) => item.feedUrl);
           validate(url, loadedUrls);
         } catch (validationError) {
-          const error = validationError.errors[0];
-          watchedState.error = error;
+          watchedState.error = validationError.message;
           watchedState.process = 'waiting';
           return;
         }
