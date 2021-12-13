@@ -6,7 +6,6 @@ const {
 } = renderers;
 
 export default (state, text) => {
-  const form = document.querySelector('.rss-form');
   const input = document.querySelector('#url-input');
   const addButton = document.querySelector('.add-btn');
   const feedback = document.querySelector('.feedback');
