@@ -6,6 +6,7 @@ const {
 } = renderers;
 
 export default (state, text) => {
+  const form = document.querySelector('.rss-form');
   const input = document.querySelector('#url-input');
   const addButton = document.querySelector('.add-btn');
   const feedback = document.querySelector('.feedback');
@@ -37,13 +38,18 @@ export default (state, text) => {
     case 'waiting':
       input.removeAttribute('readonly');
       addButton.removeAttribute('disabled');
+      renderFeedback(feedback, text, state);
+      break;
+    case 'rssAdded':
+      input.removeAttribute('readonly');
+      addButton.removeAttribute('disabled');
+      input.focus();
+      input.value = '';
       if (state.feeds.length) {
         renderFeeds(feeds, text, state);
         renderPosts(posts, text, state);
       }
       renderFeedback(feedback, text, state);
-      format.reset();
-      input.value = '';
       break;
     case 'updatingPosts':
     case 'postsUpdated':

@@ -36,7 +36,8 @@ export default () => {
           'processingRequest',
           'postsUpdated',
           'initializing',
-          'changingLanguage'];
+          'changingLanguage',
+          'rssAdded'];
         if (path === 'process' && processes.includes(value)) {
           render(state, i18n);
         }
@@ -84,7 +85,7 @@ export default () => {
 
             watchedState.feeds = [newFeed, ...watchedState.feeds];
             watchedState.posts = [...posts, ...watchedState.posts];
-            watchedState.process = 'waiting';
+            watchedState.process = 'rssAdded';
             setTimeout(() => {
               updatePosts(url, watchedState);
             }, state.refreshInterval);
