@@ -4,4 +4,4 @@
 [![Linter Status](https://github.com/LHTHC/frontend-project-lvl3/actions/workflows/main.yml/badge.svg)](https://github.com/LHTHC/frontend-project-lvl3/actions/workflows/main.yml)
 
 ### Link to app:
-https://frontend-project-lvl3-sage-eta.vercel.app/
+https://frontend-project-lvl3-lhthc.vercel.app/
