@@ -1,5 +1,5 @@
-import renderers from './render/index';
-import getFeedBackMessage from './utils/generateFeedBackMessage';
+import renderers from './render/index.js';
+import getFeedBackMessage from './utils/generateFeedBackMessage.js';
 
 const {
   renderFeedback, renderFeeds, renderPosts,

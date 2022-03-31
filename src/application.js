@@ -1,12 +1,12 @@
 import i18next from 'i18next';
 import axios from 'axios';
 import onChange from 'on-change';
-import render from './view';
-import resources from './locales/index';
-import proxify from './utils/routes';
-import parser from './parser';
-import validate from './validator';
-import updatePosts from './updatePosts';
+import render from './view.js';
+import resources from './locales/index.js';
+import proxify from './utils/routes.js';
+import parser from './parser.js';
+import validate from './validator.js';
+import updatePosts from './updatePosts.js';
 
 export default () => {
   const defaultLanguage = 'ru';

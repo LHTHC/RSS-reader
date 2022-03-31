@@ -1,10 +1,10 @@
 /* eslint-disable no-param-reassign */
 
 import axios from 'axios';
-import differenceBy from 'lodash/differenceBy';
-import isEmpty from 'lodash/isEmpty';
-import parser from './parser';
-import proxify from './utils/routes';
+import differenceBy from 'lodash/differenceBy.js';
+import isEmpty from 'lodash/isEmpty.js';
+import parser from './parser.js';
+import proxify from './utils/routes.js';
 
 const updatePosts = (url, state) => {
   axios.get(proxify(url))
