@@ -1,6 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
+  "type": "module",
   "description": "[![Actions Status](https://github.com/LHTHC/frontend-project-lvl3/workflows/hexlet-check/badge.svg)](https://github.com/LHTHC/frontend-project-lvl3/actions)",
   "main": "./src/application.js",
   "scripts": {
@@ -18,10 +19,7 @@
   },
   "homepage": "https://github.com/LHTHC/frontend-project-lvl3#readme",
   "devDependencies": {
-    "@babel/core": "^7.16.0",
-    "@babel/preset-env": "^7.16.4",
     "@webpack-cli/generators": "^2.4.1",
-    "babel-loader": "^8.2.3",
     "css-loader": "^6.5.1",
     "eslint": "^8.3.0",
     "eslint-config-airbnb-base": "^15.0.0",
