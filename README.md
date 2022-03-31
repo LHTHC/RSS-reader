@@ -4,7 +4,7 @@
 [![Linter Status](https://github.com/LHTHC/frontend-project-lvl3/actions/workflows/main.yml/badge.svg)](https://github.com/LHTHC/frontend-project-lvl3/actions/workflows/main.yml)
 
 ### Link to app:
-https://frontend-project-lvl3-lhthc.vercel.app/
+https://lhthc-rss.vercel.app/
 
 ### How to use:
 Enter an RSS link to input field and you're done :)
